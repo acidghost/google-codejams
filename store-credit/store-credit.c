@@ -54,17 +54,9 @@ found_items *find_items(case_data data) {
 
 
 int main(int argc, char const *argv[]) {
-	if (argc != 2) {
-		printf("Usage: %s input.txt\n", argv[0]);
-		fail();
-	}
+	check_argc(argc, 2, "Usage: %s input.txt\n", argv[0])
 
-	char const *input = argv[1];
-	FILE *in = fopen(input, "r");
-	if (!in) {
-		printf("Unable to open file %s\n", input);
-		fail();
-	}
+	open_file(in, argv[1], "r")
 
 	uint8_t cases;
 	checked_scan(fscanf(in, "%hhu\n", &cases), 1)

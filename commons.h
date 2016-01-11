@@ -13,3 +13,16 @@
 		printf("Error during scan.\n");						\
 		fail();												\
 	}
+
+#define check_argc(argc, len, str, ...)						\
+	if (argc != len) {										\
+		printf(str, __VA_ARGS__);							\
+		fail();												\
+	}
+
+#define open_file(var, filename, mode)						\
+	FILE *var = fopen(filename, mode);						\
+	if (!var) {												\
+		printf("Unable to open file %s\n", filename);		\
+		fail();												\
+	}
