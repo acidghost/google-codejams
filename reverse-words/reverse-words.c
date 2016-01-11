@@ -17,23 +17,25 @@ case_data *parse_case(FILE *in) {
 	};
 
 	char *line = malloc(MAX_LIST * MAX_BUFFER * sizeof(char));
-	checked_scan(fscanf(in, "%s\n", line), 1)
-	// line[strlen(line)] = '\0';
+	fgets(line, MAX_LIST * MAX_BUFFER, in);
 	
 	data->list = malloc(MAX_LIST * sizeof(char *));
-	uint16_t i = 0, j = 0;
-	for (char *c = line; *c != '\0'; c++) {
-		printf("c %c\n", *c);
-		printf("ij %hu %hu\n", i, j);
+	data->size = 0;
+	data->list[data->size] = malloc(MAX_BUFFER * sizeof(char));
+
+	uint16_t j = 0;
+	for (char *c = line; *c != '\n'; c++) {
 		if (*c == ' ') {
-			puts("New string");
-			data->list[i++] = malloc(MAX_BUFFER * sizeof(char));
+			data->size++;
+			data->list[data->size-1][j] = '\0';
+			data->list[data->size] = malloc(MAX_BUFFER * sizeof(char));
 			j = 0;
 		} else {
-			data->list[i][j] = *c;
+			data->list[data->size][j] = *c;
 			j++;
 		}
 	}
+	data->size++;
 
 	free(line);
 
@@ -51,7 +53,11 @@ int main(int argc, char **argv) {
 	for (char case_n = 1; case_n <= cases; case_n++) {
 		case_data *data = parse_case(in);
 		
-		printf("Case #%d: %hu %s\n", case_n, data->size, data->list[0]);
+		printf("Case #%d: ", case_n);
+		for (uint16_t i = data->size-1; i >= 1; i--) {
+			printf("%s ", data->list[i]);
+		}
+		printf("%s\n", data->list[0]);
 		
 		free(data);
 	}
