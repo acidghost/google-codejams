@@ -1,3 +1,44 @@
 module Main where
+import System.Environment (getProgName, getArgs)
+import System.IO
+import Data.List.Split (splitOn)
 
-main = putStrLn "Hello World"
+
+main :: IO ()
+main = do
+	args <- getArgs
+	if length args == 1 then
+		doFile (head args)
+	else do
+		progName <- getProgName
+		putStrLn $ "Usage: " ++ progName ++ " input.txt"
+
+
+doFile :: String -> IO ()
+doFile fileName = do
+	inh <- openFile fileName ReadMode
+	line <- hGetLine inh
+	doCases inh 1 (read line :: Int)
+
+doCases :: Handle -> Int -> Int -> IO ()
+doCases inh caseN caseM = do
+	if caseN > caseM then
+		return ()
+	else do
+		doCase inh caseN
+		doCases inh (caseN + 1) caseM
+
+doCase :: Handle -> Int -> IO ()
+doCase inh caseN = do
+	line <- hGetLine inh
+	let credits = read line :: Int
+	line <- hGetLine inh
+	let listSize = read line :: Int
+	line <- hGetLine inh
+	let list = map (\e -> read e :: Int) (splitOn " " line)
+	let items = findItems list credits
+	putStrLn $ "Case #" ++ (show caseN) ++ ": " ++ 
+		(show $ fst items) ++ " " ++ (show $ snd items)
+
+findItems :: [Int] -> Int -> (Int, Int)
+findItems list credits = undefined
