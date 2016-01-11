@@ -25,7 +25,7 @@ hask: $(hs_obj)
 	ghc -O3 -o $@ $^
 
 clean-hask:
-	rm -f $(hs_obj) $(wildcard *.hi) $(wildcard *.o)
+	rm -rf $(hs_obj) $(wildcard *.hi) $(wildcard *.o) *.dSYM
 
 clean-c:
 	rm -f $(objects)
