@@ -56,14 +56,14 @@ found_items *find_items(case_data data) {
 int main(int argc, char const *argv[]) {
 	if (argc != 2) {
 		printf("Usage: %s input.txt\n", argv[0]);
-		fail;
+		fail();
 	}
 
 	char const *input = argv[1];
 	FILE *in = fopen(input, "r");
 	if (!in) {
 		printf("Unable to open file %s\n", input);
-		fail;
+		fail();
 	}
 
 	uint8_t cases;
@@ -74,7 +74,7 @@ int main(int argc, char const *argv[]) {
 		found_items *items = find_items(*data);
 		if (!items) {
 			printf("Unable to find items!\n");
-			fail;
+			fail();
 		}
 		printf("Case #%d: %hu %hu\n", case_n, items->item1, items->item2);
 		

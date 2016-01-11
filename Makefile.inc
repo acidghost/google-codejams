@@ -4,6 +4,12 @@ CFLAGS = -Wall -std=gnu11 -g -O3
 SHELL = /bin/bash
 
 
+sources = $(wildcard *.c)
+objects = $(sources:%.c=%)
+hs_src = $(wildcard *.hs)
+hs_obj = $(hs_src:%.hs=%-hs)
+
+
 .PHONY: all clean
 
 all: c hask
