@@ -1,8 +1,8 @@
 include ../Makefile.inc
 
-sources = $(shell find -name *.c)
+sources = $(wildcard *.c)
 objects = $(sources:%.c=%)
-hs_src = $(shell find -name *.hs)
+hs_src = $(wildcard *.hs)
 hs_obj = $(hs_src:%.hs=%-hs)
 
 .PHONY: all clean
@@ -14,10 +14,15 @@ c: $(objects)
 %: %.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-hask: $(hs_src)
+hask: $(hs_obj)
 
-%.hs: %
-	ghc -O3 -o $(^)-hs $@
+%-hs: %.hs
+	ghc -O3 -o $@ $^
 
-clean:
-	rm -f $(objects) $(hs_obj) $(wildcard *.hi) $(wildcard *.o)
+clean-hask:
+	rm -f $(hs_obj) $(wildcard *.hi) $(wildcard *.o)
+
+clean-c:
+	rm -f $(objects)
+
+clean: clean-c clean-hask
