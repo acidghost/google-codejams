@@ -39,7 +39,7 @@ case_data *parse_case(FILE *in) {
 found_items *find_items(case_data data) {
 	found_items *items = malloc(sizeof(found_items));
 	for (uint16_t i = 0; i < data.list_size - 1; i++) {
-		for (uint16_t j = 1; j < data.list_size; j++) {
+		for (uint16_t j = i+1; j < data.list_size; j++) {
 			if (i == j) continue;
 
 			if (data.list[i] + data.list[j] == data.credits) {
