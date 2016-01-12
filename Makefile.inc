@@ -22,7 +22,7 @@ c: $(objects)
 hask: $(hs_obj)
 
 %-hs: %.hs
-	ghc -O3 -o $@ $^
+	ghc -O3 -i../ -o $@ $^
 
 clean-hask:
 	rm -rf $(hs_obj) $(wildcard *.hi) $(wildcard *.o) *.dSYM
