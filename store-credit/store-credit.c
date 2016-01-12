@@ -22,15 +22,15 @@ case_data *parse_case(FILE *in) {
 		.list_size = 0,
 	};
 
-	checked_scan(fscanf(in, "%hu\n", &data->credits), 1)
-	checked_scan(fscanf(in, "%hu\n", &data->list_size), 1)
+	checked_scan(fscanf(in, "%hu\n", &data->credits), != 1)
+	checked_scan(fscanf(in, "%hu\n", &data->list_size), != 1)
 
 	data->list = malloc(sizeof(uint16_t) * data->list_size);
 
 	for (int i = 0; i < data->list_size-1; i++) {
-		checked_scan(fscanf(in, "%hu ", &data->list[i]), 1)
+		checked_scan(fscanf(in, "%hu ", &data->list[i]), != 1)
 	}
-	checked_scan(fscanf(in, "%hu\n", &data->list[data->list_size-1]), 1)
+	checked_scan(fscanf(in, "%hu\n", &data->list[data->list_size-1]), != 1)
 
 	return data;
 }
@@ -59,7 +59,7 @@ int main(int argc, char const *argv[]) {
 	open_file(in, argv[1], "r")
 
 	uint8_t cases;
-	checked_scan(fscanf(in, "%hhu\n", &cases), 1)
+	checked_scan(fscanf(in, "%hhu\n", &cases), != 1)
 	for (char case_n = 1; case_n <= cases; case_n++) {
 		case_data *data = parse_case(in);
 		

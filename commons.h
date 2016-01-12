@@ -8,8 +8,8 @@
 
 #define fail() exit(EXIT_FAILURE)
 
-#define checked_scan(scan, should_be)						\
-	if (scan != should_be) {								\
+#define checked_scan(scan, check)							\
+	if (scan check) {										\
 		printf("Error during scan.\n");						\
 		fail();												\
 	}

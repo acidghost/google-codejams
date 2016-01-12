@@ -17,7 +17,7 @@ case_data *parse_case(FILE *in) {
 	};
 
 	char *line = malloc(MAX_LIST * MAX_BUFFER * sizeof(char));
-	checked_scan(fgets(line, MAX_LIST * MAX_BUFFER, in), line)
+	checked_scan(fgets(line, MAX_LIST * MAX_BUFFER, in), != line)
 	
 	data->list = malloc(MAX_LIST * sizeof(char *));
 	data->size = 0;
@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
 	open_file(in, argv[1], "r")
 
 	uint8_t cases;
-	checked_scan(fscanf(in, "%hhu\n", &cases), 1)
+	checked_scan(fscanf(in, "%hhu\n", &cases), != 1)
 	for (char case_n = 1; case_n <= cases; case_n++) {
 		case_data *data = parse_case(in);
 		
