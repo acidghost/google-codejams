@@ -17,7 +17,7 @@ case_data *parse_case(FILE *in) {
 	};
 
 	char *line = malloc(MAX_LIST * MAX_BUFFER * sizeof(char));
-	fgets(line, MAX_LIST * MAX_BUFFER, in);
+	checked_scan(fgets(line, MAX_LIST * MAX_BUFFER, in), line)
 	
 	data->list = malloc(MAX_LIST * sizeof(char *));
 	data->size = 0;
